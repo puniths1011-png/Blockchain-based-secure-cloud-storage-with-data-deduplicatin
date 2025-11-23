@@ -1,0 +1,143 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Blockchain Decentralized Cloud</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .zoom-hover {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .zoom-hover:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .banner-bg {
+  position: relative;
+  background-image: url("{% static 'images/image.jpg' %}");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* adjust opacity for dullness */
+}
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- HEADER / NAV -->
+  <header class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-extrabold tracking-wide">Decentralized Cloud</h1>
+      <nav>
+        <ul class="flex gap-6 font-medium">
+          <li><a href="/" class="hover:text-yellow-300 transition">Home</a></li>
+
+          <li><a href="owner" class="hover:text-yellow-300 transition">Owner</a></li>
+           <li><a href="blockchain" class="hover:text-yellow-300 transition">BlockChain</a></li>
+          <li><a href="ipfs" class="hover:text-yellow-300 transition">IPFSCloud</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+ <section id="home" class="banner-bg text-white relative">
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-28 text-center">
+    <h2 class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
+      Blockchain-Based Decentralized Cloud Storage
+    </h2>
+    <p class="max-w-3xl mx-auto text-lg mb-8 text-gray-200">
+      A secure and transparent storage system powered by blockchain technology with reliable deduplication and IPFS-based storage balancing.
+    </p>
+    <a href="#owner" class="px-8 py-4 rounded-xl bg-yellow-400 text-black font-bold shadow-lg hover:bg-yellow-300 transform hover:scale-105 transition">
+      🚀 Explore Now
+    </a>
+  </div>
+</section>
+  <!-- BODY -->
+  <main class="max-w-7xl mx-auto px-6 py-16 space-y-24">
+
+    <!-- Owner Section -->
+    <section id="owner">
+      <h3 class="text-3xl font-bold mb-10 text-indigo-700 text-center">👤 Owner Dashboard</h3>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="p-6 rounded-xl bg-gradient-to-r from-indigo-100 to-blue-100 zoom-hover text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/2920/2920244.png" alt="Register" class="w-20 mx-auto mb-4">
+          <h4 class="font-semibold text-lg">Secure Registration</h4>
+          <p class="mt-2 text-gray-700">Each owner registers securely on blockchain, ensuring digital identity is tamper-proof.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gradient-to-r from-purple-100 to-pink-100 zoom-hover text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" alt="Upload" class="w-20 mx-auto mb-4">
+          <h4 class="font-semibold text-lg">File Upload</h4>
+          <p class="mt-2 text-gray-700">Owners upload files, which are hashed and verified before storage on IPFS nodes.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gradient-to-r from-green-100 to-teal-100 zoom-hover text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/3867/3867623.png" alt="Alerts" class="w-20 mx-auto mb-4">
+          <h4 class="font-semibold text-lg">Smart Alerts</h4>
+          <p class="mt-2 text-gray-700">System automatically notifies when duplicates are detected or storage limits are reached.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blockchain Section -->
+    <section id="blockchain">
+      <h3 class="text-3xl font-bold mb-10 text-indigo-700 text-center">🔗 Blockchain Features</h3>
+      <div class="grid md:grid-cols-2 gap-10">
+        <div class="p-6 rounded-xl bg-gradient-to-r from-indigo-200 to-purple-200 zoom-hover flex flex-col items-center text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/1320/1320897.png" alt="Immutable" class="w-20 mb-4">
+          <h4 class="font-semibold text-lg">Immutable Records</h4>
+          <p class="mt-2 text-gray-700">Blockchain ensures permanent, tamper-proof storage of file hashes for verification.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gradient-to-r from-pink-200 to-red-200 zoom-hover flex flex-col items-center text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/3079/3079170.png" alt="Deduplication" class="w-20 mb-4">
+          <h4 class="font-semibold text-lg">Reliable Deduplication</h4>
+          <p class="mt-2 text-gray-700">Before storing, blockchain checks for duplicates to save space and avoid redundancy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- IPFS Cloud Section -->
+    <section id="ipfs">
+      <h3 class="text-3xl font-bold mb-10 text-indigo-700 text-center">☁️ IPFS Cloud Storage</h3>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="p-6 rounded-xl bg-gradient-to-r from-yellow-100 to-orange-100 zoom-hover text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/2706/2706952.png" alt="Distributed" class="w-20 mx-auto mb-4">
+          <h4 class="font-semibold text-lg">Distributed Storage</h4>
+          <p class="mt-2 text-gray-700">Files are stored across multiple IPFS nodes, reducing single point of failure.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gradient-to-r from-teal-100 to-green-100 zoom-hover text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/3209/3209265.png" alt="Balancing" class="w-20 mx-auto mb-4">
+          <h4 class="font-semibold text-lg">Load Balancing</h4>
+          <p class="mt-2 text-gray-700">Smart load balancing ensures even distribution of storage across cloud servers.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gradient-to-r from-blue-100 to-cyan-100 zoom-hover text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="Retrieval" class="w-20 mx-auto mb-4">
+          <h4 class="font-semibold text-lg">Secure Retrieval</h4>
+          <p class="mt-2 text-gray-700">Retrieve files easily with unique IPFS CID and blockchain-backed verification.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 py-8 mt-20">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+      <p>© <span id="year"></span> Blockchain Decentralized Cloud</p>
+      <p class="mt-3 md:mt-0">🌐 Built with ❤️ using Tailwind CSS</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

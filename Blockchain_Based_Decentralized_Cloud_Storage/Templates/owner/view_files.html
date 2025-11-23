@@ -1,0 +1,107 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Upload File | Decentralized Cloud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 text-gray-900 min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-extrabold">📂 Upload Files</h1>
+      <nav>
+        <ul class="flex gap-6 font-medium">
+          <li><a href="/owner_home" class="hover:text-yellow-300 transition">Home</a></li>
+          <li><a href="/view_files" class="hover:text-yellow-300 transition">View Files</a></li>
+          <li><a href="/owner" class="hover:text-yellow-300 transition">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+ <!-- MAIN -->
+<main class="flex-grow max-w-7xl mx-auto px-10 py-20">
+
+  <h2 class="text-2xl font-bold mb-6">Files uploaded by {{ email }}</h2>
+
+  <div class="bg-white shadow-2xl rounded-2xl p-10 border border-indigo-200">
+    {% if files %}
+    <div class="overflow-x-auto w-full">
+      <table class="w-full border border-gray-300 rounded-xl shadow-md text-base">
+        <thead class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white text-lg uppercase tracking-wider">
+          <tr>
+            <th class="px-8 py-4 text-left">CID</th>
+            <th class="px-8 py-4 text-left">Hash</th>
+            <th class="px-8 py-4 text-left">Size</th>
+            <th class="px-8 py-4 text-left">Uploaded At</th>
+            <th class="px-8 py-4 text-center">Link</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 text-gray-800">
+          {% for f in files %}
+          <tr class="hover:bg-indigo-50 transition">
+            <td class="px-8 py-4 font-mono text-sm truncate max-w-[400px]" title="{{ f.cid }}">
+              {{ f.cid }}
+            </td>
+            <td class="px-8 py-4 font-mono text-sm truncate max-w-[400px]" title="{{ f.file_hash }}">
+              {{ f.file_hash }}
+            </td>
+            <td class="px-8 py-4">{{ f.size }} bytes</td>
+            <td class="px-8 py-4">{{ f.timestamp }}</td>
+           <td class="px-8 py-4 text-center">
+            <button onclick="openFilePopup('http://127.0.0.1:8080/ipfs/{{ f.cid }}', '{{ f.cid }}')"
+                    class="px-5 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold shadow hover:bg-indigo-500 transition">
+              Open
+            </button>
+          </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="text-gray-600 italic text-lg">No files found for this owner.</p>
+    {% endif %}
+  </div>
+</main>
+<!-- File Popup Modal -->
+<div id="filePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl w-full mx-4 relative">
+    <!-- Close button -->
+    <button onclick="closeFilePopup()"
+            class="absolute top-3 right-3 text-gray-600 hover:text-red-600 text-xl font-bold">&times;</button>
+
+    <!-- Dynamic content -->
+    <h3 class="text-xl font-semibold mb-4">File Preview</h3>
+    <iframe id="fileFrame" src="" class="w-full h-[500px] border rounded-lg"></iframe>
+
+    <!-- CID display -->
+    <p id="fileCid" class="mt-4 text-sm font-mono text-gray-700 break-words"></p>
+  </div>
+</div>
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 py-6 mt-20">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between">
+      <p>© <span id="year"></span> Blockchain Decentralized Cloud</p>
+
+    </div>
+  </footer>
+<script>
+  function openFilePopup(url, cid) {
+    document.getElementById("fileFrame").src = url;
+    document.getElementById("fileCid").innerText = "CID: " + cid;
+    document.getElementById("filePopup").classList.remove("hidden");
+  }
+
+  function closeFilePopup() {
+    document.getElementById("fileFrame").src = ""; // clear iframe
+    document.getElementById("filePopup").classList.add("hidden");
+  }
+</script>
+
+</body>
+</html>

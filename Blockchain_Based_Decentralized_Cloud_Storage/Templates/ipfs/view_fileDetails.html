@@ -1,0 +1,133 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>IPFS Home | Decentralized Cloud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-indigo-50 to-purple-50 text-gray-900 min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-extrabold">🌐 IPFS Dashboard</h1>
+      <nav>
+        <ul class="flex gap-6 font-medium">
+          <li><a href="/ipfs_home" class="hover:text-yellow-300 transition">Home</a></li>
+          <li><a href="/view_IPFSfileDetails" class="hover:text-yellow-300 transition">View All Files</a></li>
+          <li><a href="/ipfs" class="hover:text-yellow-300 transition">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-grow max-w-6xl mx-auto px-6 py-16">
+
+    <!-- Welcome -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-indigo-700 mb-3">⚡ InterPlanetary File System (IPFS)</h2>
+      <p class="text-lg text-gray-700">
+        Logged in as <span class="font-semibold text-purple-700">IPFS User</span>
+      </p>
+    </div>
+
+    <!-- IPFS Info -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-indigo-100 to-purple-100 shadow-md text-center mb-10">
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">What is IPFS?</h3>
+      <p class="text-gray-700 leading-relaxed">
+        The <strong>InterPlanetary File System (IPFS)</strong> is a peer-to-peer protocol designed to make the web faster, safer, and more open.
+        Instead of using centralized servers, IPFS uses a <em>distributed system of nodes</em> to store and share files.
+        Every file is identified by a unique cryptographic hash, ensuring immutability and security.
+      </p>
+    </div>
+
+
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <!-- Scrollable container -->
+  <div class="w-5/5 max-h-[900px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-xl shadow-lg bg-white">
+    <table class="w-full text-base text-center">
+      <thead class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white text-lg uppercase tracking-wider">
+        <tr>
+          <th class="px-6 py-4">Hash Code</th>
+          <th class="px-6 py-4">Content ID</th>
+          <th class="px-6 py-4">File Size</th>
+          <th class="px-6 py-4">Transaction ID</th>
+          <th class="px-6 py-4">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 text-gray-800">
+        {% for f in result_table %}
+        <tr class="hover:bg-indigo-50 transition">
+          <td class="px-6 py-4 font-mono text-sm truncate" title="{{ f.hash }}">
+            {{ f.hash }}
+          </td>
+          <td class="px-6 py-4 font-mono text-sm truncate" title="{{ f.cid }}">
+            {{ f.cid }}
+          </td>
+          <td class="px-6 py-4 font-mono text-sm">{{ f.size }} Bytes</td>
+          <td class="px-6 py-4">{{ f.tx }}</td>
+          <td class="px-6 py-4 text-center">
+            <button onclick="openFilePopup('http://127.0.0.1:8080/ipfs/{{ f.cid }}', '{{ f.cid }}')"
+                    class="px-5 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold shadow hover:bg-indigo-500 transition">
+              Open
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+    <!-- Logout -->
+    <div class="mt-16 text-center">
+      <a href="/logout"
+         class="px-8 py-3 rounded-xl bg-gradient-to-r from-gray-200 to-gray-300 text-gray-800 font-bold shadow hover:from-gray-300 hover:to-gray-400 transition">
+        🔒 Logout
+      </a>
+    </div>
+  </main>
+<!-- File Popup Modal -->
+<div id="filePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl w-full mx-4 relative">
+    <!-- Close button -->
+    <button onclick="closeFilePopup()"
+            class="absolute top-3 right-3 text-gray-600 hover:text-red-600 text-xl font-bold">&times;</button>
+
+    <!-- Dynamic content -->
+    <h3 class="text-xl font-semibold mb-4">File Preview</h3>
+    <iframe id="fileFrame" src="" class="w-full h-[500px] border rounded-lg"></iframe>
+
+    <!-- CID display -->
+    <p id="fileCid" class="mt-4 text-sm font-mono text-gray-700 break-words"></p>
+  </div>
+</div>
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 py-6 mt-20">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm">
+      <p>© <span id="year"></span> Decentralized Cloud using IPFS</p>
+      <p class="mt-2 md:mt-0">⚡ Powered by IPFS & Distributed Storage</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+<script>
+  function openFilePopup(url, cid) {
+    document.getElementById("fileFrame").src = url;
+    document.getElementById("fileCid").innerText = "CID: " + cid;
+    document.getElementById("filePopup").classList.remove("hidden");
+  }
+
+  function closeFilePopup() {
+    document.getElementById("fileFrame").src = ""; // clear iframe
+    document.getElementById("filePopup").classList.add("hidden");
+  }
+</script>
+</body>
+</html>

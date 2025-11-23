@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Blockchain Migration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen flex flex-col items-center py-16">
+
+  <div class="bg-white shadow-2xl rounded-2xl p-10 max-w-4xl w-full border border-indigo-200">
+    <h1 class="text-2xl font-bold text-indigo-700 mb-6">⚡ Smart Contract Migration</h1>
+
+    {% if address %}
+      <p class="text-green-600 font-semibold mb-4">
+        🚀 Contract deployed successfully!
+      </p>
+      <p class="font-mono text-sm bg-gray-100 px-4 py-2 rounded">
+        Address: {{ address }}
+      </p>
+    {% else %}
+      <p class="text-red-600 font-semibold mb-4">❌ Migration failed</p>
+    {% endif %}
+
+    <h2 class="text-lg font-semibold mt-8 mb-2">Migration Logs</h2>
+    <pre class="bg-gray-900 text-green-300 text-xs p-4 rounded overflow-x-auto max-h-96">
+{{ logs }}
+    </pre>
+
+    <div class="mt-6 flex gap-4">
+      <a href="/run_migration" class="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-500">
+        🔄 Run Migration Again
+      </a>
+      <a href="/blockchain_home" class="px-6 py-3 bg-gray-600 text-white rounded-lg shadow hover:bg-gray-500">
+        ⬅ Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>
